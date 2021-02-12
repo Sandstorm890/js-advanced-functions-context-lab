@@ -8,6 +8,45 @@
  As a result, the lessons for this function will pass *and* it will be available
  for you to use if you need it!
  */
+let createEmployeeRecord = function(employeeInfo) {
+    let information = {
+        firstName: employeeInfo[0],
+        familyName: employeeInfo[1],
+        title: employeeInfo[2],
+        payPerHour: employeeInfo[3],
+        timeInEvents: [],
+        timeOutEvents: []
+    };
+    return information
+};
+
+let createEmployeeRecords = function(employeeInfo) {
+    return employeeInfo.map(employee => createEmployeeRecord(employee))
+};
+
+let createTimeInEvent = function(dateStamp) {
+    const [date, hour] = dateStamp.split(" ")
+    this.timeInEvents.push({type: "TimeIn", date: date, hour: parseInt(hour)})
+    return this
+};
+
+let createTimeOutEvent = function(dateStamp) {
+    const [date, hour] = dateStamp.split(" ")
+    this.timeOutEvents.push({type: "TimeOut", date: date, hour: parseInt(hour)})
+    return this
+};
+
+let hoursWorkedOnDate = function(dateOnly) {
+    let dayIn = this.timeInEvents.find(element => element.date === dateOnly).hour
+    let dayOut = this.timeOutEvents.find(element => element.date === dateOnly).hour
+    return (dayOut - dayIn)/100
+};
+
+let wagesEarnedOnDate = function(date) {
+    let wage = (hoursWorkedOnDate.call(this, date) * this.payPerHour)
+    return wage
+}
+
 
 let allWagesFor = function () {
     let eligibleDates = this.timeInEvents.map(function (e) {
